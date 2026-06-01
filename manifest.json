@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Indeed AI Job Filter",
+  "version": "1.0.0",
+  "description": "AI-powered job filtering based on your education, experience & preferences",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://www.indeed.com/*",
+    "https://*.indeed.com/*",
+    "https://api.openai.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.indeed.com/jobs*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
