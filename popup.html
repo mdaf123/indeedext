@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Job Filter</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; width: 380px; padding: 16px; background: #f4f6fb; margin: 0; }
+    h2 { color: #1a1a1a; margin: 0 0 12px; font-size: 16px; }
+    .section { background: white; border-radius: 8px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .section.warn { background: #fffbea; border: 1px solid #f0c040; }
+    label { display: block; font-size: 11px; font-weight: 700; color: #555; margin-bottom: 3px; text-transform: uppercase; }
+    input, select, textarea {
+      width: 100%; padding: 7px 9px; border: 1px solid #ddd;
+      border-radius: 5px; font-size: 13px; margin-bottom: 8px;
+    }
+    input:last-child, select:last-child, textarea:last-child { margin-bottom: 0; }
+    textarea { height: 56px; resize: vertical; }
+    .slider-row { display: flex; align-items: center; gap: 10px; }
+    .slider-row input { margin-bottom: 0; }
+    .slider-val { font-weight: bold; color: #2557a7; min-width: 30px; }
+    button {
+      width: 100%; padding: 11px; background: #2557a7; color: white;
+      border: none; border-radius: 7px; font-size: 14px; font-weight: bold; cursor: pointer;
+    }
+    button:hover { background: #1a4080; }
+    .status { text-align: center; margin-top: 8px; font-size: 13px; color: #2e7d32; display: none; }
+  </style>
+</head>
+<body>
+  <h2>🤖 Indeed AI Job Filter</h2>
+
+  <div class="section warn">
+    <label>OpenAI API Key</label>
+    <input type="password" id="apiKey" placeholder="sk-..." />
+    <label>AI Model</label>
+    <select id="model">
+      <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
+      <option value="gpt-4o">gpt-4o (more accurate)</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>Education Level</label>
+    <select id="educationLevel">
+      <option value="">Select...</option>
+      <option value="no_degree">No Degree</option>
+      <option value="high_school">High School / GED</option>
+      <option value="associate">Associate's Degree</option>
+      <option value="bachelor">Bachelor's Degree</option>
+      <option value="master">Master's Degree</option>
+      <option value="phd">PhD / Doctorate</option>
+      <option value="bootcamp">Bootcamp / Certification</option>
+    </select>
+    <label>Field of Study / Major</label>
+    <input type="text" id="fieldOfStudy" placeholder="e.g. Computer Science, Nursing, Finance" />
+    <label>Certifications (comma-separated)</label>
+    <input type="text" id="certifications" placeholder="e.g. AWS, PMP, CPA, RN" />
+  </div>
+
+  <div class="section">
+    <label>Years of Experience</label>
+    <input type="number" id="yearsExp" min="0" max="50" placeholder="e.g. 3" />
+    <label>Skills (comma-separated)</label>
+    <textarea id="skills" placeholder="e.g. Python, React, SQL, Project Management, Excel"></textarea>
+    <label>Previous Job Titles</label>
+    <input type="text" id="jobHistory" placeholder="e.g. Software Engineer, Retail Manager" />
+  </div>
+
+  <div class="section">
+    <label>Desired Job Title(s)</label>
+    <input type="text" id="desiredTitle" placeholder="e.g. Frontend Developer, Data Analyst" />
+    <label>Preferred Job Type</label>
+    <select id="jobType">
+      <option value="any">Any</option>
+      <option value="full_time">Full-Time</option>
+      <option value="part_time">Part-Time</option>
+      <option value="contract">Contract</option>
+      <option value="internship">Internship</option>
+      <option value="remote">Remote Only</option>
+    </select>
+    <label>Min Salary (USD/year)</label>
+    <input type="number" id="minSalary" placeholder="e.g. 60000 (leave blank to ignore)" />
+  </div>
+
+  <div class="section">
+    <label>Age (optional)</label>
+    <input type="number" id="age" min="16" max="80" placeholder="e.g. 22 — helps filter entry/senior roles" />
+    <label>Extra Preferences / Notes</label>
+    <textarea id="preferences" placeholder="e.g. career changer, no night shifts, prefer startups, open to entry-level"></textarea>
+  </div>
+
+  <div class="section">
+    <label>Minimum Match Score to Show Jobs</label>
+    <div class="slider-row">
+      <input type="range" id="minScore" min="0" max="100" value="50" />
+      <span class="slider-val" id="minScoreDisplay">50</span>
+    </div>
+  </div>
+
+  <button id="saveBtn">💾 Save Profile</button>
+  <div class="status" id="status">✅ Saved! Refresh Indeed to apply filters.</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
